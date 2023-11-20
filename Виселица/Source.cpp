@@ -274,7 +274,6 @@ string GuessWord(string b) {
 }
 int main() {
 
-
 	ifstream out("Text.txt");
 	string b ;
 	bool choice = true;
