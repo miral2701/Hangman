@@ -1,0 +1,8 @@
+cucumber
+Mira
+car
+hamster
+cube
+blue
+apple
+hangman
