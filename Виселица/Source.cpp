@@ -14,13 +14,17 @@
 #include<string>
 #include<windows.h>
 #include<ctime>
-
 using namespace std;
-static string a="             ";
 
+static string a="             ";//строка в которую будут записываться правильно введенные символы
+static string leters = "                                       ";//строка в которую будут записываться асе введенные символы
+static int leters_count = 0;//индекс для записи символов 
+int try_count = 0;//количество попыток выграша
+int error_count = 0;//количество ошибок во время одной партии
+
+//показ игрового поля и всех его вариацый
 void drawField1() {
-	char c = 220;// --
-	char d = 221;//|
+	
 	cout << "                   Hangman" << endl;
 	cout << "----------------------------------------------------"<<endl;
 	cout << "-                                                  -" << endl;
@@ -41,10 +45,8 @@ void drawField1() {
 	cout << a << endl;
 
 }
-
 void drawField2() {
-	char c = 220;// --
-	char d = 221;//|
+	
 	cout << "                   Hangman" << endl;
 	cout << "----------------------------------------------------" << endl;
 	cout << "-                                                  -" << endl;
@@ -64,10 +66,8 @@ void drawField2() {
 	cout << "----------------------------------------------------" << endl;
 	cout << a << endl;
 }
-
 void drawField3() {
-	char c = 220;// --
-	char d = 221;//|
+	
 	cout << "                   Hangman" << endl;
 	cout << "----------------------------------------------------" << endl;
 	cout << "-                                                  -" << endl;
@@ -89,8 +89,7 @@ void drawField3() {
 
 }
 void drawField4() {
-	char c = 220;// --
-	char d = 221;//|
+	
 	cout << "                   Hangman" << endl;
 	cout << "----------------------------------------------------" << endl;
 	cout << "-                                                  -" << endl;
@@ -111,10 +110,8 @@ void drawField4() {
 	cout << a << endl;
 
 }
-
 void drawField5() {
-	char c = 220;// --
-	char d = 221;//|
+	
 	cout << "                   Hangman" << endl;
 	cout << "----------------------------------------------------" << endl;
 	cout << "-                                                  -" << endl;
@@ -136,8 +133,7 @@ void drawField5() {
 
 }
 void drawField6() {
-	char c = 220;// --
-	char d = 221;//|
+	
 	cout << "                   Hangman" << endl;
 	cout << "----------------------------------------------------" << endl;
 	cout << "-                                                  -" << endl;
@@ -159,8 +155,7 @@ void drawField6() {
 
 }
 void drawField7() {
-	char c = 220;// --
-	char d = 221;//|
+	
 	cout << "                   Hangman" << endl;
 	cout << "----------------------------------------------------" << endl;
 	cout << "-                                                  -" << endl;
@@ -181,11 +176,8 @@ void drawField7() {
 	cout << a << endl;
 
 }
-static string leters="                                                                                              ";
-static int leters_count = 0;
 void drawField8(string b) {
-	char c = 220;// --
-	char d = 221;//|
+	
 	cout << "                   Hangman" << endl;
 	cout << "----------------------------------------------------" << endl;
 	cout << "-                GAME OVER                         -" << endl;
@@ -208,10 +200,8 @@ void drawField8(string b) {
 	cout << "Leters you used: "<<leters<<endl ;
 
 }
-int try_count = 0;
 void Win() {
-	char c = 220;// --
-	char d = 221;//|
+	
 	cout << "                   Hangman" << endl;
 	cout << "----------------------------------------------------" << endl;
 	cout << "-                   YOU WON!!!                     -" << endl;
@@ -230,6 +220,8 @@ void Win() {
 	cout << "-                                                  -" << endl;
 	cout << "----------------------------------------------------" << endl;
 }
+
+
 string Random(ifstream& out) {//Возвращает рандомное слово из файла
 	
 	out.seekg(0, ios::beg);
@@ -250,9 +242,7 @@ string Random(ifstream& out) {//Возвращает рандомное слов
 	}
 	return b;
 }
-int error_count = 0;//7
-
-string GuessWord(string b) {
+string GuessWord(string b) {//возвращат строку в которую при правильно угаданном символе будет записан этот символ
 	cout << "Enter char->";
 	char c;
 	cin >> c;
@@ -272,13 +262,18 @@ string GuessWord(string b) {
 	}
 	return a;
 }
+
 int main() {
 
 	ifstream out("Text.txt");
 	string b ;
 	bool choice = true;
+
 	while (b != a) {
 		a = "             ";
+		error_count = 0;
+		leters = "                                                                                        ";
+		leters_count = 0;
 		b = Random(out);
 
 		a.erase(b.size());
@@ -286,10 +281,6 @@ int main() {
 		if (choice == false) {
 			exit(0);
 		}
-		error_count = 0;
-
-		leters = "                                                                                        ";
-		leters_count = 0;
 
 		while (error_count != 8 && b != a) {
 
